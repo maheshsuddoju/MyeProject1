@@ -1,0 +1,69 @@
+Driver Sessions
+
+
+1. Options:  to describe the kind of session you want; default values are used for local,
+ but this is required for remote
+  As of Selenium 4, you must use the browser options classes. For remote driver sessions,
+   a browser options instance is required as it determines which browser will be used.
+
+ Each browser has custom options that may be defined in addition to the ones defined in the specification.
+
+ ChromeOptions chromeOptions = getDefaultChromeOptions();
+ String name = chromeOptions.getBrowserName(); // Gives defautl browser name which is Chrome
+ // Setting Version
+    String version = "latest";
+ 	chromeOptions.setBrowserVersion(version);
+
+ // pageLoadStrategy
+
+    Strategy	Ready               State	Notes
+    normal	complete	            Used by default, waits for all resources to download
+    eager	interactive	            DOM access is ready, but other resources like images may still be loading
+    none	Any	                    Does not block WebDriver at all
+
+    chromeOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
+//platformName
+    String platform = "OS X 10.6";
+	chromeOptions.setPlatformName(platform);
+
+//acceptInsecureCerts
+    chromeOptions.setAcceptInsecureCerts(true);
+
+// timeouts
+         Script Timeout
+         Duration duration = Duration.of(5, ChronoUnit.SECONDS);
+         chromeOptions.setScriptTimeout(duration);
+
+         Page Load Timmeout
+         Duration duration = Duration.of(5, ChronoUnit.SECONDS);
+         chromeOptions.setPageLoadTimeout(duration)
+
+         Implicit Wait Timeout
+         Duration duration = Duration.of(5, ChronoUnit.SECONDS);
+         chromeOptions.setImplicitWaitTimeout(duration);
+
+// unhandledPromptBehaviour
+    dismiss
+    accept
+    dismiss and notify
+    accept and notify
+    ignore
+
+    chromeOptions.setUnhandledPromptBehaviour(UnexpectedAlertBehaviour.DISMISS_AND_NOTIFY);
+
+
+// setWindowReact
+
+    chromeOptions.setCapability(CapabilityType.SET_WINDOW_RECT, true);
+
+// strictFileInteractability
+
+    chromeOptions.setCapability(CapabilityType.STRICT_FILE_INTERACTABILITY, true);
+
+// proxy
+
+        Proxy proxy = new Proxy();
+            proxy.setHttpProxy("<HOST:PORT>");
+            chromeOptions.setCapability("proxy", proxy);
+
+//
