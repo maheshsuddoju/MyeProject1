@@ -1,0 +1,48 @@
+pipeline {
+    agent any
+
+    environment {
+        ALLURE_RESULTS = 'target/allure-results'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/maheshsuddoju/MyProject1.git'
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                sh 'mvn clean install'
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                sh 'mvn test'
+            }
+        }
+
+        stage('Generate Allure Report') {
+            steps {
+                sh 'mvn allure:report'
+            }
+        }
+
+        stage('Publish Allure Report') {
+            steps {
+                allure([
+                    reportBuildPolicy: 'ALWAYS',
+                    results: [[path: "allure-results"]]
+                ])
+            }
+        }
+    }
+
+    post {
+        always {
+            junit '**/target/surefire-reports/*.xml'
+        }
+    }
+}
