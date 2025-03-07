@@ -35,7 +35,7 @@ public class ProfileUpdate {
 
     @Test(description="Updating Resume")
     public static void updateNewResume() throws InterruptedException {
-        //running now ith jenkins
+        //running now ith jenkins mvn clean test -DsuiteXmlFile=testng.xml
         login(username,password);
         clickOnProfile();
         clickOnViewAndUpdateProfile();
