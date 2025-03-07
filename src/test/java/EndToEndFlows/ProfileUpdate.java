@@ -35,6 +35,7 @@ public class ProfileUpdate {
 
     @Test(description="Updating Resume")
     public static void updateNewResume() throws InterruptedException {
+        //running now ith jenkins
         login(username,password);
         clickOnProfile();
         clickOnViewAndUpdateProfile();
